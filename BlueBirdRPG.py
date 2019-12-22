@@ -1,3 +1,5 @@
+
+#-*-coding python3.7-*-
 import pygame
 from pygame.locals import *
 import time
@@ -64,14 +66,14 @@ Player_Anim_Gauche6,Player_Anim_Gauche7,Player_Anim_Gauche8,Player_Anim_Gauche9,
 
 fenetre.blit(fond, (0,0))   #colle "fond" sur la fenetre à 0,0
 Player = Player_bas #Par defaut
-pos_Player = Player.get_rect()  #Recupere les coordonnées de Player (par defaut 0,0)
+pos_Player = (265,155)
 fenetre.blit(Player,pos_Player) 
 pygame.display.flip()   #Rafraichissement de l'ecran
+pos_Player = Player.get_rect()  #Recupere les coordonnées de Player (par defaut 0,0)
 
 pygame.key.set_repeat(1, 30)
 Continue = 1
 i = 0
-
 
 while Continue:
     time.sleep(0.05)
@@ -82,7 +84,7 @@ while Continue:
 
         if event.type == KEYDOWN:
 
-            if event.key == K_LEFT or event.key == ord("q"):
+            if event.key == K_LEFT or event.key == K_q:
                 if i >= len(Player_Anim_Gauche):
                    i = 0
                 if pos_Player in fond.get_size():   #plutto <= 0 ici, car gauche de l'ecran
@@ -92,7 +94,7 @@ while Continue:
                 i +=1
                 Player_Orientation = "gauche"
 
-            elif event.key == K_RIGHT or event.key == ord("d"):
+            elif event.key == K_RIGHT or event.key == K_d:
                 if i >= len(Player_Anim_Droite):
                    i = 0
                 Player = Player_Anim_Droite[i]
@@ -101,7 +103,7 @@ while Continue:
                 Player_Orientation = "droite"
                 
 
-            if event.key == K_UP or event.key == ord("z"):
+            if event.key == K_UP or event.key == K_z:
                 if i >= len(Player_Anim_Haut):
                    i = 0
                 Player = Player_Anim_Haut[i]
@@ -110,7 +112,7 @@ while Continue:
                 Player_Orientation = "haut"
 
 
-            elif event.key == K_DOWN or event.key == ord("s"):
+            elif event.key == K_DOWN or event.key == K_s:
                if i >= len(Player_Anim_Bas):
                    i = 0
                Player = Player_Anim_Bas[i]
@@ -136,6 +138,7 @@ while Continue:
     fenetre.blit(fond,(0,0))
     fenetre.blit(Player,pos_Player)
     pygame.display.flip()
+    print (pos_Player)
 
 
 pygame.quit()
