@@ -9,12 +9,13 @@ import time
 from Classes import *      #Fichier Classes.py
 from Constantes import *   #Fichier Constantes.py
 
+
 ### Initialisation Pygame ###
 pygame.init()
-fenetre = pygame.display.set_mode(SizeFenetre, RESIZABLE)    #créé une fenetre de taille definié dans {}Constantes
 # Icon = pygame.image.load(Icon_Image)
 # pygame.display.set_icon(Icon)
-pygame.display.set_caption(Title)
+pygame.display.set_caption(Title)   #nomme la fenetre, issue de {}Constantes
+fenetre = pygame.display.set_mode(SizeFenetre, RESIZABLE)    #créé une fenetre de taille definié dans {}Constantes
 pygame.time.Clock().tick(30)    #Limite les boucles à 30x/sec
 
 fond = pygame.image.load(background_img).convert()    #import "background.png" en tant que "fond"
@@ -26,7 +27,7 @@ fond = pygame.image.load(background_img).convert()    #import "background.png" e
 # Player_pos_y = 50
 
 fenetre.blit(fond, (0,0))   #colle "fond" sur la fenetre à 0,0
-Player = Player_bas #Par defaut
+Player = Default_Player #Par defaut
 pos_Player = (265,155)
 fenetre.blit(Player,pos_Player) 
 pygame.display.flip()   #Rafraichissement de l'ecran
@@ -37,7 +38,10 @@ Continue = 1
 i = 0
 
 while Continue:
-    time.sleep(0.05)
+
+    while MenuAccueil:
+        
+    
 
     for event in pygame.event.get():
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
