@@ -6,14 +6,19 @@ from pygame.locals import *
 #
 pygame.init()
 SizeFenetre = (1280,720)
-background = pygame.image.load"BackgroundUndertale.jpg").convert_alpha()
 Title = ("Blue Bird RPG")   #Nom de la fenetre
-# Icon = ("/")
+# Icon = pygame.image.load("/").convert_alpha()
 
-# Interface Menu Accueil
+#
+# Backgrounds
+#
 Background_Accueil = pygame.image.load("background_accueil.jpg")
 
-
+ChambreCeleste = pygame.image.load("BackgroundUndertale.jpg").convert_alpha()
+Vaisseau_Hall = pygame.image.load("/").convert_alpha()
+#
+# Sprites
+#
 Celeste_bas = ("Sprites_Personnages/Celeste/Celeste_Marche_Bas0.png")
 Celeste_haut = ("Sprites_Personnages/Celeste/Celeste_Marche_Haut0.png").convert_alpha()
 Celeste_droite = ("Sprites_Personnages/Celeste/Celeste_Marche_Droite00.png").convert_alpha()
