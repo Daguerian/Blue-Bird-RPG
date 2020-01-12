@@ -3,4 +3,12 @@ import Constantes
 # Classes associées au jeu
 #
 
-Default_Player = pygame.image.load(background).convert_alpha()
+class Player():
+    def __init__(self):
+        pass
+
+
+class Map():
+    def __init__(self):
+        pass
+    
