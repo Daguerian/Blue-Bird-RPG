@@ -7,9 +7,9 @@ import pygame
 from pygame.locals import *
 import time
 
-Size_Window = (1280,720)
+Size_Window = (800,600)
 pygame.init()
-fenetre = pygame.display.set_mode((Size_Window))    #créé une fenetre de taille definié dans {}Constantes
+fenetre = pygame.display.set_mode((Size_Window),RESIZABLE)    #créé une fenetre de taille definié dans {}Constantes
 from Classes import *      #Fichier Classes.py
 from Constantes import *   #Fichier Constantes.py
 
@@ -41,28 +41,39 @@ while Continue:
     while Continue_Accueil:
         pygame.time.Clock().tick(30)
         for event in pygame.event.get():
+            if event.type == VIDEORESIZE:
+                x_Accueil, y_Accueil, L_Accueil, w_Accueil = Background_Accueil.get_rect()
+                x_fenetre,y_fenetre,L_fenetre,w_fenetre = fenetre.get_rect()
+                Background_Accueil = pygame.transform.scale(Background_Accueil,(w_fenetre,L_fenetre))
+                fenetre.blit(Background_Accueil,(0,0))
+                #move des boutons
+                pygame.display.flip()
+
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:   #Quitte le jeu
                 Continue_Game = 0
                 Continue_Accueil = 0
                 Continue = 0
 
             elif event.type == KEYDOWN:
-                if event.key == K_t:
-                    x_fenetre,y_fenetre,L_fenetre,l_fenetre = fenetre.get_rect()
-                    print ("x =",x_fenetre)
-                    print ("y =",y_fenetre)
-                    print ("L =",L_fenetre)
-                    print ("l =",l_fenetre)
+                if event.key == K_t:    #Tests
+                    background = ChambreCeleste
+                    x_background,y_background,L_background,w_background = background.get_rect() #Length -> longueur(y) | width -> Largeur(x)
+                    print ("x =",x_background)
+                    print ("y =",y_background)
+                    print ("L =",L_background)
+                    print ("w =",w_background)
 
                 if event.key == K_RETURN: #Lancement à la touche Entrée
-                    background = ChambreCeleste
-                    Rect_Background = background.get_rect()
-                    Pos_ChambreCeleste = (640,360)
-                    fenetre.blit(background, Pos_ChambreCeleste)   #colle "ChambreCeleste" sur la fenetre à 0,0 (background)
+                    background = ChambreCeleste #Set du background
+                    x_background,y_background,L_background,w_background = background.get_rect() #Length -> longueur(y) | width -> Largeur(x)
+                    x_fenetre,y_fenetre,L_fenetre,w_fenetre = fenetre.get_rect()
+                    x_background = w_fenetre/2 - w_background/2
+                    y_background = L_fenetre/2 - L_background/2
+                    fenetre.blit(background, (x_background,y_background))   #colle "ChambreCeleste" sur la fenetre à 0,0 (background)
                     # background = pygame.transform.scale(background,(640,480))
                     Player = Celeste_bas #Sprite par defaut
-                    pos_Player = Player.get_rect()  #Recupere les coordonnées de Player (par defaut 0,0)
-                    pos_Player = pos_Player.move(Save_pos_Player)
+                    pos_Player = Player.get_rect()
+                    pos_Player = pos_Player.move((x_Player+x_background,y_Player+y_background))
                     # pos_Player = (265,155)  #set le position du joueur, plas tard stockée via un point de sauvegarde
                     fenetre.blit(Player,pos_Player) 
                     pygame.display.flip()   #Rafraichissement de l'ecran
@@ -128,8 +139,8 @@ while Continue:
                     i +=1
                     # Player_Orientation = "bas"
                    
-            fenetre.blit(ChambreCeleste,(0,0))
-            fenetre.blit(Player,pos_Player)
+            fenetre.blit(background,(x_background,y_background))
+            fenetre.blit(Player,(pos_Player))
             pygame.display.flip()
             print (Player.get_rect())
 

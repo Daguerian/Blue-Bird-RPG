@@ -1,28 +1,23 @@
 import pygame
 from pygame.locals import *
 
-#
 # Constantes du jeu
-#
 pygame.init()
 SizeFenetre = (1280,720)
 Title = ("Blue Bird RPG")   #Nom de la fenetre
 Icon = pygame.image.load("Logo.png").convert_alpha()
 
-#
 # Saves
-#
-Save_pos_Player = (265,155)
-#
+x_Player = 265
+y_Player = 155
+
 # Backgrounds
-#
 Background_Accueil = pygame.image.load("Background_Accueil.png")
 
-ChambreCeleste = pygame.image.load("BackgroundUndertale.jpg")#.convert_alpha()
+ChambreCeleste = pygame.image.load("ChambreCeleste.jpg")#.convert_alpha()
 # Vaisseau_Hall = pygame.image.load("/").convert_alpha()
-#
+
 # Sprites
-#
 Celeste_bas = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas0.png").convert_alpha()
 Celeste_haut = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Haut0.png").convert_alpha()
 Celeste_droite = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Droite00.png").convert_alpha()
@@ -71,11 +66,3 @@ Celeste_Anim_Gauche10 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_M
 Celeste_Anim_Gauche11 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Gauche11.png").convert_alpha()
 Celeste_Anim_Gauche = [Celeste_Anim_Gauche1,Celeste_Anim_Gauche2,Celeste_Anim_Gauche3,Celeste_Anim_Gauche4,Celeste_Anim_Gauche5,
 Celeste_Anim_Gauche6,Celeste_Anim_Gauche7,Celeste_Anim_Gauche8,Celeste_Anim_Gauche9,Celeste_Anim_Gauche10,Celeste_Anim_Gauche11]
-
-
-class Player():
-    def __init__(self):
-        pass
-
-    def deplacements(self):
-        pass

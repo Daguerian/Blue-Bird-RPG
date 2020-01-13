@@ -5,7 +5,7 @@ import Constantes
 
 class Player():
     def __init__(self):
-        pass
+        self.pos = (265+)
 
 
 class Map():
