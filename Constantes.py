@@ -7,6 +7,7 @@ SizeFenetre = (1280,720)
 Title = ("Blue Bird RPG")   #Nom de la fenetre
 Icon = pygame.image.load("Logo.png").convert_alpha()
 
+compteur_sprite = 3
 # Saves
 x_Player = 265
 y_Player = 155
@@ -22,14 +23,25 @@ Celeste_bas = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas0
 Celeste_haut = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Haut0.png").convert_alpha()
 Celeste_droite = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Droite00.png").convert_alpha()
 Celeste_gauche = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Gauche00.png").convert_alpha()
+# Celeste_dico = {"haut":"Celeste_haut","bas":Celeste_bas,"gauche":Celeste_gauche,"droite":Celeste_droite}
 
-Celeste_Anim_Bas1 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas1.png").convert_alpha()
-Celeste_Anim_Bas2 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas2.png").convert_alpha()
-Celeste_Anim_Bas3 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas3.png").convert_alpha()
-Celeste_Anim_Bas4 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas4.png").convert_alpha()
-Celeste_Anim_Bas5 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas5.png").convert_alpha()
-Celeste_Anim_Bas6 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas6.png").convert_alpha()
-Celeste_Anim_Bas = [Celeste_Anim_Bas1,Celeste_Anim_Bas2,Celeste_Anim_Bas3,Celeste_Anim_Bas4,Celeste_Anim_Bas5,Celeste_Anim_Bas6]
+# Celeste_Anim_Bas1 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas1.png").convert_alpha()
+# Celeste_Anim_Bas2 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas2.png").convert_alpha()
+# Celeste_Anim_Bas3 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas3.png").convert_alpha()
+# Celeste_Anim_Bas4 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas4.png").convert_alpha()
+# Celeste_Anim_Bas5 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas5.png").convert_alpha()
+# Celeste_Anim_Bas6 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas6.png").convert_alpha()
+# Celeste_Anim_Bas = [Celeste_Anim_Bas1,Celeste_Anim_Bas2,Celeste_Anim_Bas3,Celeste_Anim_Bas4,Celeste_Anim_Bas5,Celeste_Anim_Bas6]
+
+Celeste_Anim_Bas = []
+Celeste_Anim_Bas.append(pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas1.png").convert_alpha())
+Celeste_Anim_Bas.append(pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas2.png").convert_alpha())
+Celeste_Anim_Bas.append(pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas3.png").convert_alpha())
+Celeste_Anim_Bas.append(pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas4.png").convert_alpha())
+Celeste_Anim_Bas.append(pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas5.png").convert_alpha())
+Celeste_Anim_Bas.append(pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Bas6.png").convert_alpha())
+
+
 
 Celeste_Anim_Haut1 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Haut1.png").convert_alpha()
 Celeste_Anim_Haut2 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Haut2.png").convert_alpha()
@@ -66,3 +78,5 @@ Celeste_Anim_Gauche10 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_M
 Celeste_Anim_Gauche11 = pygame.image.load("Sprites_Personnages/Celeste/Celeste_Marche_Gauche11.png").convert_alpha()
 Celeste_Anim_Gauche = [Celeste_Anim_Gauche1,Celeste_Anim_Gauche2,Celeste_Anim_Gauche3,Celeste_Anim_Gauche4,Celeste_Anim_Gauche5,
 Celeste_Anim_Gauche6,Celeste_Anim_Gauche7,Celeste_Anim_Gauche8,Celeste_Anim_Gauche9,Celeste_Anim_Gauche10,Celeste_Anim_Gauche11]
+
+Celeste_dico = {"haut":Celeste_Anim_Haut,"bas":Celeste_Anim_Bas,"gauche":Celeste_Anim_Gauche,"droite":Celeste_Anim_Droite}
