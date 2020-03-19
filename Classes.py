@@ -22,7 +22,7 @@ class Player():
         self.orientation = "bas"
         self.pos_x = 265    #par rapport au background
         self.pos_y = 155
-        self.pos = (265,155)
+        self.pos = (background.pos[0]+background.get_rect()[2]/2-self.sprite.get_rect()[2]/2, background.pos[1]+background.get_rect()[3]/2-self.sprite.get_rect()[3]/2)
 
     def deplacement(self, event_type, event_key, Player):
         global compteur_sprite
