@@ -118,16 +118,10 @@ class Game():
             print("Sauvegarde non trouvée")
             self.text_reset_save_exc = font.render("Sauvegarde non trouvée", True,(255,255,255))
             self.text_reset_save = font.render("Voulez-vous en créer une nouvelle ?", True,(255,255,255))
-            self.rect_oui = main_menu_bouton.get_rect(topleft=(340,370))
-            self.rect_non = main_menu_bouton.get_rect(topleft=(690,370))
-            self.frame_bouton_oui = self.frame_bouton_non = main_menu_bouton
             self.update_reset_sauvegarde()
         except:
             self.text_reset_save_exc = font.render("Impossible de charger la sauvegarde", True,(255,255,255))
             self.text_reset_save = font.render("Voulez-vous en créer une nouvelle ?", True,(255,255,255))
-            self.rect_oui = main_menu_bouton.get_rect(topleft=(340,370))
-            self.rect_non = main_menu_bouton.get_rect(topleft=(690,370))
-            self.frame_bouton_oui = self.frame_bouton_non = main_menu_bouton
             self.update_reset_sauvegarde()
 
         if self.sauvegarde:
