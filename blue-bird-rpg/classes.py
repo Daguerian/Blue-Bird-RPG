@@ -291,14 +291,14 @@ class Player(pygame.sprite.Sprite):
 
     def update(self,time, keys):
         self.deltaTime = self.deltaTime + time
-        if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+        if keys[pygame.K_LSHIFT]:
             sprite_time = 30
         else:
             sprite_time = 40
         if self.deltaTime >= sprite_time:   #depuis le dernier changement de sprite
             self.deltaTime = 0
             self.move_key_last = self.move_key
-            self.move_key = [keys[pygame.K_q], keys[pygame.K_d], keys[pygame.K_z], keys[pygame.K_s]]
+            self.move_key = [keys[pygame.K_a], keys[pygame.K_d], keys[pygame.K_w], keys[pygame.K_s]]
 
             if self.move_key_last == self.move_key and self.move_key != [0,0,0,0]:
                 
