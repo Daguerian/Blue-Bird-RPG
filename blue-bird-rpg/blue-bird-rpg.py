@@ -17,11 +17,11 @@ pygame.display.set_icon(Icon)
 pygame.display.set_caption(Title)
 pygame.key.set_repeat(1, 30)
 
-last_press_w = 0
+last_press_debug = 0
 
 while status.on_app:
     pygame.time.Clock().tick(30)    # boucle 30x /s
-
+    settings = Settings()
     status.on_main_menu = 1
     main_menu = Main_Menu(window) #Init
 
@@ -65,26 +65,26 @@ while status.on_app:
             perso.vitesse = int(round(100/FPS)) + 2
         else:
             perso.vitesse = int(round(100/FPS))
-        if keys[pygame.K_d]:
+        if keys[settings.key_right]:
             perso.moveRight()
 
-        elif keys[pygame.K_a]:
+        elif keys[settings.key_left]:
             perso.moveLeft()
 
-        elif keys[pygame.K_w]:
+        elif keys[settings.key_up]:
             perso.moveUp()
 
-        elif keys[pygame.K_s]:
+        elif keys[settings.key_down]:
             perso.moveDown()
 
         #debug mode
-        last_press_w += time
-        if keys[pygame.K_z] and last_press_w > 150 and debug_mode:
+        last_press_debug += time
+        if keys[settings.key_debug] and last_press_debug > 150 and debug_mode:
             debug_mode = False
-            last_press_w = 0
-        elif keys[pygame.K_z] and last_press_w > 150:
+            last_press_debug = 0
+        elif keys[settings.key_debug] and last_press_debug > 150:
             debug_mode = True
-            last_press_w = 0
+            last_press_debug = 0
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -94,19 +94,19 @@ while status.on_app:
         perso.update(time, keys)
         window.fill((0,0,0))    #black screen arriere plan
         window.blit(game.background, (game.pos_background)) #background 
-        # print(game.background.get_rect())
-        # print(get_lefttop(game.background, window, 0))
+        if debug_mode:  #sous celeste
+            window.blit(game.hitbox, game.pos_background)
         
-        window.blit(perso.image, perso.pos_img)
+        window.blit(perso.image, perso.pos_img) #sprite celeste
+
         if game.above_sprite:   #si un above_sprite est defini
             window.blit(game.above_sprite, (game.pos_background))
 
-        if debug_mode:
-            opacité_hitbox = pygame.Surface((int(game.hitbox.get_rect()[0]), int(game.hitbox.get_rect()[1])))
-            opacité_hitbox.set_alpha(50)
-            opacité_hitbox.blit(game.hitbox, (0,0))
-            window.blit(opacité_hitbox, (game.pos_background))
+        if debug_mode:  #au dessus de celeste
             pygame.draw.rect(window, (0,255,0), perso.rect, 2)
             pygame.draw.rect(window, (255,0,0), perso.rect_pieds, 2)
             pygame.draw.rect(window, (0,0,255), (perso.pos_img[0], perso.pos_img[1], perso.image.get_rect()[2],perso.image.get_rect()[3]), 2)
+
+
+
         pygame.display.flip()

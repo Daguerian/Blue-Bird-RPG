@@ -82,7 +82,19 @@ class Main_Menu():
             self.window.blit(self.text_title,(get_lefttop(self.text_title,self.window,0)[0],100))
             self.window.blit(self.text_undertitle, (800,180))   #beta
 
-
+class Settings():
+    def __init__(self):
+        self.key_up = 122
+        self.key_down = 115
+        self.key_left = 113
+        self.key_right = 100
+        self.key_debug = 119
+        print(self.key_up)
+        print(self.key_down)
+        print(self.key_left)
+        print(self.key_right)
+        print(self.key_debug)
+        print("Settings chargés")
 
 def get_lefttop(frontbox, backbox, AlreadyRect):    #frontbox: texte par exemple, backbox: bouton par exemple
     if AlreadyRect == 0:    # 0 = aucun deja rect
@@ -204,6 +216,7 @@ class Player(pygame.sprite.Sprite):
         #            bas        haut        gauche         droite
 
     def __init__(self, game):
+        self.settings = Settings()
         self.game = game
         pygame.sprite.Sprite.__init__(self)
         pos = data_map[self.game.room_name][4]
@@ -227,8 +240,8 @@ class Player(pygame.sprite.Sprite):
             if room == "chambre_celeste":
                 self.game.room_name = "sdb_chambre_celeste"
                 self.game.above_sprite = None
-                # self.rect[0], self.rect[1] = 580,460
                 pos = (540,460)
+                # self.rect[0], self.rect[1] = 580,460
             elif room == "sdb_chambre_celeste":
                 self.game.room_name = "chambre_celeste"
                 self.game.above_sprite = None
@@ -265,8 +278,8 @@ class Player(pygame.sprite.Sprite):
         elif sens == "right":
             hit[0] += self.game.hitbox.get_at((int(xx),int(y)))
             hit[1] += self.game.hitbox.get_at((int(xx),int(yy)))
-            #du 1er au 3e NON INCLUS
-        if hit[0][0:3] == (255,255,255) and hit[1] == (255,255,255):    #couleur blanche, aucun above
+            #du 1er au 3e NON INCLUS 
+        if hit[0][0:3] == (255, 255, 255) and hit[1][0:3] == (255, 255, 255):    #couleur blanche, aucun above
             self.game.above_sprite = None
             return "can_move"
         elif hit[0][0:3] == (255,0,0) and hit[1][0:3] == (255,0,0):      #couleur rouge, above 1
@@ -275,14 +288,16 @@ class Player(pygame.sprite.Sprite):
         elif hit[0][0:3] == (255,106,0) and hit[1][0:3] == (255,106,0):    #couleur orange, above 2
             self.game.above_sprite = self.game.above_sprite_list[1]
             return "can_move"
-        elif hit[0] == (255,216,0) and hit[1] == (255,216,0):         #couleur jaune, above 3
+        elif hit[0][0:3] == (255,216,0) and hit[1][0:3] == (255,216,0):         #couleur jaune, above 3
             self.game.above_sprite = self.game.above_sprite_list[2]
-        
-        if (255,0,110) in hit:      #rose/violet, porte 1
+        #Portes
+        if hit[0][0:3] == (255,0,110) or hit[1][0:3] == (255,0,110):      #rose/violet, porte 1
             self.change_room(self.game.room_name, 1)
         elif (255,110,110) in hit:  # , porte 2
             pass
-
+        # print(hit[0])
+        # print(hit[1])
+        
     def update(self,time, keys):
         self.deltaTime = self.deltaTime + time
         if keys[pygame.K_LSHIFT]:
@@ -292,7 +307,7 @@ class Player(pygame.sprite.Sprite):
         if self.deltaTime >= sprite_time:   #depuis le dernier changement de sprite
             self.deltaTime = 0
             self.move_key_last = self.move_key
-            self.move_key = [keys[pygame.K_a], keys[pygame.K_d], keys[pygame.K_w], keys[pygame.K_s]]
+            self.move_key = [keys[self.settings.key_up], keys[self.settings.key_down], keys[self.settings.key_left], keys[self.settings.key_right]]
 
             if self.move_key_last == self.move_key and self.move_key != [0,0,0,0]:
                 
@@ -323,8 +338,8 @@ class Player(pygame.sprite.Sprite):
             self.move_sprite = (self.vitesse,0)
             if self.sens in ["up", "down"]:
                 self.rect[0] += 11
-                self.rect_pieds[0] += 6
-                self.rect_pieds[2] -= 12
+                # self.rect_pieds[0] += 6
+                # self.rect_pieds[2] -= 12
             self.sens = "right"
         else:
             pass
@@ -341,8 +356,8 @@ class Player(pygame.sprite.Sprite):
             self.move_sprite = (-self.vitesse,0)
             if self.sens in ["up", "down"]:
                 self.rect[0] += 11
-                self.rect_pieds[0] += 6
-                self.rect_pieds[2] -= 12
+                # self.rect_pieds[0] += 6
+                # self.rect_pieds[2] -= 12
             self.sens = "left"
         else:
             pass
@@ -360,8 +375,8 @@ class Player(pygame.sprite.Sprite):
             self.move_sprite = (0,-self.vitesse)
             if self.sens in ["left", "right"]:
                 self.rect[0] -= 11
-                self.rect_pieds[0] -= 6
-                self.rect_pieds[2] += 12
+                # self.rect_pieds[0] -= 6
+                # self.rect_pieds[2] += 12
             self.sens = "up"
         else:
             pass
@@ -379,8 +394,8 @@ class Player(pygame.sprite.Sprite):
             self.move_sprite = (0,self.vitesse)
             if self.sens in ["left", "right"]:
                 self.rect[0] -= 11
-                self.rect_pieds[0] -= 6
-                self.rect_pieds[2] += 12
+                # self.rect_pieds[0] -= 6
+                # self.rect_pieds[2] += 12
             self.sens = "down"
         else:
             pass
