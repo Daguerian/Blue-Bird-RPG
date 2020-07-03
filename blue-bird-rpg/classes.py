@@ -279,6 +279,8 @@ class Player(pygame.sprite.Sprite):
             hit[0] += self.game.hitbox.get_at((int(xx),int(y)))
             hit[1] += self.game.hitbox.get_at((int(xx),int(yy)))
             #du 1er au 3e NON INCLUS 
+        print(hit[0])
+        print(hit[1])
         if hit[0][0:3] == (255, 255, 255) and hit[1][0:3] == (255, 255, 255):    #couleur blanche, aucun above
             self.game.above_sprite = None
             return "can_move"
@@ -293,10 +295,8 @@ class Player(pygame.sprite.Sprite):
         #Portes
         if hit[0][0:3] == (255,0,110) or hit[1][0:3] == (255,0,110):      #rose/violet, porte 1
             self.change_room(self.game.room_name, 1)
-        elif (255,110,110) in hit:  # , porte 2
-            pass
-        # print(hit[0])
-        # print(hit[1])
+        elif hit[0][0:3] == (229,0,99) or hit[1][0:3] == (229,0,99):  # , porte 2
+            print("Porte 2")
         
     def update(self,time, keys):
         self.deltaTime = self.deltaTime + time

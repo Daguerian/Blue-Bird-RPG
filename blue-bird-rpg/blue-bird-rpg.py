@@ -86,6 +86,8 @@ while status.on_app:
             debug_mode = True
             last_press_debug = 0
 
+        if keys[pygame.K_ESCAPE]:
+            status.on_game = 0
         for event in pygame.event.get():
             if event.type == QUIT:
                 status.on_game = 0
