@@ -1,6 +1,7 @@
 #/usr/bin/python3.7
 #
 # Structure principale du jeu
+#v. dev
 
 import pygame
 from pygame.locals import *
