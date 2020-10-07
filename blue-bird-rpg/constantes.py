@@ -50,5 +50,17 @@ except:
 FPS = 60
 data_map = {}                                                                                                                     #pos joueur
          #  Nom de la salle      background           img hitbox                liste des imgs above sprite               scrollable
-data_map["chambre_celeste"] = (chambre_celeste, chambre_celeste_hitbox ,[chambre_celeste_above_1, chambre_celeste_above_2], False, (400, 500))
-data_map["sdb_chambre_celeste"] = (sdb_celeste, sdb_celeste_hitbox, [sdb_celeste_above_1, sdb_celeste_above_2], False, (0,0))
+data_map["chambre_celeste"] = (
+    chambre_celeste,    #img background
+    chambre_celeste_hitbox ,    #img hitbox
+    [chambre_celeste_above_1,chambre_celeste_above_2],  #liste des aboves-sprite
+    False,      #scrollable
+    (400, 500)  #pos spawn joueur
+    )
+data_map["sdb_chambre_celeste"] = (
+    sdb_celeste,
+    sdb_celeste_hitbox,
+    [sdb_celeste_above_1, sdb_celeste_above_2],
+    False,
+    (540,470)
+    )
