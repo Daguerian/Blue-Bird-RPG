@@ -12,6 +12,12 @@ class Status():
         self.on_main_menu = 1
         self.on_settings = 0
         self.on_game = 0
+        self.game_in_menu = 0
+        self.menu_up = 273
+        self.menu_down = 274
+        self.menu_left = 276
+        self.menu_right = 275
+        self.menu_back = 8
 status = Status()
 
 class Main_Menu():
@@ -100,6 +106,8 @@ def get_lefttop(frontbox, backbox, AlreadyRect):    #frontbox: texte par exemple
     
     point = ((rect2[2]/2 - rect1[2]/2), rect2[3]/2 - rect1[3]/2)
     return point
+
+
 
 ### Game ###
 class Game():
@@ -193,7 +201,8 @@ class Game():
                 "key_left": 113,
                 "key_right": 100,
                 "key_sprint": 304,
-                "key_debug": 119
+                "key_debug": 119,
+                "key_menu": 13
             },
             "level": "chambre_celeste"
         }

@@ -60,22 +60,36 @@ while status.on_app:    #App ouverte
     while status.on_game:   #En jeu
         time = pygame.time.Clock().tick(FPS)    #pour reguler la vitesse du perso et des animations
         keys = pygame.key.get_pressed()
-        if keys[game.controls['key_sprint']]:   #active ou desactive le mode de sprint
-            game.player.vitesse = int(round(100/FPS)) + 2
-        else:
-            game.player.vitesse = int(round(100/FPS))
 
-        if keys[game.controls['key_right']]:    #controle move droite
-            game.moveRight()
+        if not status.game_in_menu:
+            
+            if keys[game.controls['key_sprint']]:   #active ou desactive le mode de sprint
+                game.player.vitesse = int(round(100/FPS)) + 2
+            else:
+                game.player.vitesse = int(round(100/FPS))
 
-        elif keys[game.controls['key_left']]:   #controle move gauche
-            game.moveLeft()
+            if keys[game.controls['key_right']]:    #controle move droite
+                game.moveRight()
 
-        elif keys[game.controls['key_up']]:     #controle move haut
-            game.moveUp()
+            elif keys[game.controls['key_left']]:   #controle move gauche
+                game.moveLeft()
 
-        elif keys[game.controls['key_down']]:   #controle move bas
-            game.moveDown()
+            elif keys[game.controls['key_up']]:     #controle move haut
+                game.moveUp()
+
+            elif keys[game.controls['key_down']]:   #controle move bas
+                game.moveDown()
+
+            if keys[game.controls['key_menu']]:
+                status.game_in_menu = 1
+        
+        if status.game_in_menu:
+            print(K_UP)
+            print(K_DOWN)
+            print(K_LEFT)
+            print(K_RIGHT)
+            print(K_BACKSPACE)
+            status.game_in_menu = 0
 
         #debug mode
         last_press_debug += time
@@ -96,15 +110,15 @@ while status.on_app:    #App ouverte
         game.player.update(time, keys)  #update animation du joueur
         window.fill((0,0,0))    #black screen arriere plan
         window.blit(game.background, (game.pos_background)) #background de la salle
-        if debug_mode:  #sous celeste, affiche les hitbox 
+        if debug_mode:  #sous celeste, affiche les hitbox de la salle
             window.blit(game.hitbox, game.pos_background)   
-        
+
         window.blit(game.player.image, game.player.pos_img) #sprite celeste
 
         if game.above_sprite:   #si un above-sprite est defini, l'affiche au dessus de Celeste
             window.blit(game.above_sprite, (game.pos_background))
 
-        if debug_mode:  #au dessus de celeste, hitbox de la salle
+        if debug_mode:  #au dessus de celeste, hitbox de Celeste
             pygame.draw.rect(window, (0,255,0), game.player.rect, 2)
             pygame.draw.rect(window, (255,0,0), game.player.rect_pieds, 2)
             pygame.draw.rect(window, (0,0,255), (game.player.pos_img[0], game.player.pos_img[1], game.player.image.get_rect()[2],game.player.image.get_rect()[3]), 2)
