@@ -8,16 +8,13 @@ pygame.font.init()
 
 class Status():
     def __init__(self):
-        self.on_app = 1
-        self.on_main_menu = 1
-        self.on_settings = 0
-        self.on_game = 0
-        self.game_in_menu = 0
-        self.menu_up = 273
-        self.menu_down = 274
-        self.menu_left = 276
-        self.menu_right = 275
-        self.menu_back = 8
+        self.on_app = 1         #Jeu lancé
+        self.on_main_menu = 1   #sur le menu principal
+        self.on_settings = 0    #sur la page des Options (depuis le menu principal)
+        self.on_game = 0        #En jeu, (sur la map)
+        self.game_in_menu = 0   #en interration, avec un menu InGame
+
+        
 status = Status()
 
 class Main_Menu():
@@ -83,14 +80,18 @@ class Main_Menu():
             self.bouton2 = pygame.draw.rect(self.window, (color_2), (515, 370, 250, 50))
             self.bouton3 = pygame.draw.rect(self.window, (color_3), (515, 440, 250, 50))
 
-            self.window.blit(self.text_play,((self.bouton1[0]+get_lefttop(self.text_play,self.bouton1,2)[0]), (300+get_lefttop(self.text_play,self.bouton1,2)[1])))
-            self.window.blit(self.text_options,((self.bouton2[0]+get_lefttop(self.text_options,self.bouton2,2)[0]) ,370+get_lefttop(self.text_options,self.bouton2,2)[1]))
-            self.window.blit(self.text_quit, ((self.bouton3[0]+get_lefttop(self.text_quit,self.bouton3,2)[0]),(440+get_lefttop(self.text_quit,self.bouton3,2)[1])))
+            self.window.blit(self.text_play, get_lefttop(self.text_play, self.bouton1, 2))
+            self.window.blit(self.text_options, get_lefttop(self.text_options, self.bouton2, 2))
+            self.window.blit(self.text_quit, get_lefttop(self.text_quit, self.bouton3, 2))
             self.window.blit(self.text_title,(get_lefttop(self.text_title,self.window,0)[0],100))
             self.window.blit(self.text_undertitle, (800,180))   #beta
 
 
-def get_lefttop(frontbox, backbox, AlreadyRect):    #frontbox: texte par exemple, backbox: bouton par exemple
+def get_lefttop(frontbox, backbox, AlreadyRect):
+    #frontbox: element à afficher (ex: bouton)
+    # backbox: element sur lequel il sera affiché (ex: window)
+    #AlreadyRect: si un des elements est déja un objet Rect
+    
     if AlreadyRect == 0:    # 0 = aucun deja rect
         rect1 = frontbox.get_rect()
         rect2 = backbox.get_rect()
@@ -104,7 +105,8 @@ def get_lefttop(frontbox, backbox, AlreadyRect):    #frontbox: texte par exemple
         rect1 = frontbox
         rect2 = backbox
     
-    point = ((rect2[2]/2 - rect1[2]/2), rect2[3]/2 - rect1[3]/2)
+    point = ((rect2[0] + rect2[2]/2 - rect1[2]/2),
+              rect2[1] + rect2[3]/2 - rect1[3]/2)
     return point
 
 
@@ -147,7 +149,7 @@ class Game():
             self.player = Player(self.controls, data_map[self.room_name][4], self.pos_background)    #charge le Player
 
 
-    def update_reset_sauvegarde(self, text):  #fenetre en cas de sauvegarde non chargée
+    def update_reset_sauvegarde(self, text):  #écran en cas de sauvegarde non chargée
         color_oui = color_non = (67,67,67)  #couleur des boutons
         self.text_reset_save_exc = font.render(text, True,(255,255,255))
         self.text_reset_save = font.render("Voulez-vous en créer une nouvelle ?", True,(255,255,255))
@@ -202,7 +204,12 @@ class Game():
                 "key_right": 100,
                 "key_sprint": 304,
                 "key_debug": 119,
-                "key_menu": 13
+                "key_menu": 13,
+                "key_menu_up": 273,
+                "key_menu_down": 274,
+                "key_menu_left": 276,
+                "key_menu_right": 275,
+                "key_menu_back": 8
             },
             "level": "chambre_celeste"
         }

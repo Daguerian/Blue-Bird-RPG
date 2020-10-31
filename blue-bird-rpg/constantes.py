@@ -4,6 +4,8 @@ pygame.init()
 pygame.display.init()
 pygame.font.init()
 
+window_size = (1280,720)
+window = pygame.display.set_mode(window_size)
 
 Title = "Blue Bird RPG"
 try:
@@ -11,14 +13,16 @@ try:
 except:
     print("! impossible de charger l'icon")
 
-font = pygame.font.SysFont('Alef', 50, bold=False, italic=False)    # texte boutons main menu
-font_title = pygame.font.SysFont('Carlito', 120, bold=True) # texte title main menu
-font_undertitle = pygame.font.SysFont('Carlito', 30, italic=True)   # texte "beta" sous le title
+font = pygame.font.SysFont('Alef', 50, bold=False, italic=False)    #texte boutons main menu
+font_title = pygame.font.SysFont('Carlito', 120, bold=True)         #texte title main menu
+font_undertitle = pygame.font.SysFont('Carlito', 30, italic=True)   #texte "beta" sous le title
+font_dialogues = pygame.font.SysFont('Arial', 24, italic=False)     #texte des dialogues
 
 #Main menu
 main_title = "Blue Bird"
 main_undertitle = "beta"
-main_menu_background = pygame.image.load("data/main_menu/background.png").convert_alpha()
+main_menu_background = pygame.image.load("data/main_menu/background.jpeg").convert_alpha()
+main_menu_background = pygame.transform.scale(main_menu_background, (window_size))
 
 #fonds levels
 try:    #chambre celeste
