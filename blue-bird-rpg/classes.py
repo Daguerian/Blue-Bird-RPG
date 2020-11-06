@@ -361,5 +361,28 @@ class Game():
         else:
             pass
 
+    def dialog_box(self, text, choix1=None, choix2=None): #choix1 et choix2 contiennent chacun leur texte
+            boite_dialogue = pygame.draw.rect(window, (100,100,100,10), (get_lefttop((0,0,600,100), window, 1)[0], 70, 600, 100))
+            # text = "Bonjour à toi aventurier ! Que viens-tu faire ici, dans une contrée si lointaine de la tienne ?"
 
+            text = font_dialogues.render(text, True, (255,255,255))    #rendu du texte, pour tester sa longueur
+            if text.get_rect()[2] > boite_dialogue[2]*0.8:  #si la largeur du texte est > à 80% de la largeur de la boite de dialogue
+                text_list = text.split(" ")
+                line1 = " ".join(text.split(" ")[:len(text_list)//2])     #récuperation premiere moitié du texte, ainsi que conversion en str (" ".join)
+                line1 = font_dialogues.render(line1, True, (255,255,255))               #rendu du texte
+                line2 = " ".join(text.split(" ")[len(text_list)//2:])     #pareil ligne 2,
+                line2 = font_dialogues.render(line2, True, (255,255,255))               #ect...
+            else:   #si le texte tiens en une seule ligne
+                line1 = text
+                line2 = font_dialogues.render("", True, (255,255,255))
 
+            window.blit(line1, (get_lefttop(line1, boite_dialogue, 2)[0], get_lefttop(text, boite_dialogue, 2)[1] - line1.get_rect()[3]/2) )    #blit ligne 1
+            window.blit(line2, (get_lefttop(line2, boite_dialogue, 2)[0], get_lefttop(text, boite_dialogue, 2)[1] + line2.get_rect()[3]/2) )    #blit ligne 2
+
+            if choix1:
+                boite_bouton1 = pygame.draw.rect(window, (100,100,100,10), (boite_dialogue[0]+boite_dialogue[2]-100, 180, 100, 30))
+                text_bouton1 = font_dialogues_boutons.render(choix1, True, (255,255,255))
+                window.blit(text_bouton1, (get_lefttop(text_bouton1, boite_bouton1, 2)))    #blit ligne 1
+
+                #idem if choix2
+                #puis trigger clic souris 

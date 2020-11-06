@@ -16,7 +16,8 @@ except:
 font = pygame.font.SysFont('Alef', 50, bold=False, italic=False)    #texte boutons main menu
 font_title = pygame.font.SysFont('Carlito', 120, bold=True)         #texte title main menu
 font_undertitle = pygame.font.SysFont('Carlito', 30, italic=True)   #texte "beta" sous le title
-font_dialogues = pygame.font.SysFont('Arial', 24, italic=False)     #texte des dialogues
+font_dialogues = pygame.font.SysFont('Arial', 24, italic=False)     #texte des boits de dialogues
+font_dialogues_boutons = pygame.font.SysFont('Arial', 16, italic=False)     #texte des boutons des boites de dialogues
 
 #Main menu
 main_title = "Blue Bird"

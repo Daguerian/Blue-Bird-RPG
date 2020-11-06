@@ -86,13 +86,13 @@ while status.on_app:    #App ouverte
 
             if keys[game.controls['key_menu']] and last_press_menu > 150:
                 last_press_menu = 0
-                print("entrée mode menu")
+                print("entrée menu d'interraction")
                 status.game_in_menu = 1
         
         if status.game_in_menu:
             if keys[game.controls['key_menu']] and last_press_menu > 150:
                 last_press_menu = 0
-                print("exit mode menu")
+                print("sortie menu d'interraction")
                 status.game_in_menu = 0
 
         #debug mode
@@ -130,21 +130,6 @@ while status.on_app:    #App ouverte
             pygame.draw.rect(window, (0,0,255), (game.player.pos_img[0], game.player.pos_img[1], game.player.image.get_rect()[2],game.player.image.get_rect()[3]), 2)
 
         if status.game_in_menu:
+            game.dialog_box("Hey ! ceci est un teeest", "Bouton")
 
-            boite_dialogue = pygame.draw.rect(window, (100,100,100,10), (get_lefttop((0,0,600,100), window, 1)[0], 70, 600, 100))
-            text_dialogue = "Bonjour à toi aventurier ! Que viens-tu faire ici, dans une contrée si lointaine de la tienne ?"
-
-            text = font_dialogues.render(text_dialogue, True, (255,255,255))    #rendu du texte, pour tester sa longueur
-            if text.get_rect()[2] > boite_dialogue[2]*0.8:  #si la largeur du texte est > à 80% de la largeur de la boite de dialogue
-                ltext_dialogue = text_dialogue.split(" ")
-                line1 = " ".join(text_dialogue.split(" ")[:len(ltext_dialogue)//2])     #récuperation premiere moitié du texte, ainsi que conversion en str (" ".join)
-                line1 = font_dialogues.render(line1, True, (255,255,255))               #rendu du texte
-                line2 = " ".join(text_dialogue.split(" ")[len(ltext_dialogue)//2:])     #pareil ligne 2,
-                line2 = font_dialogues.render(line2, True, (255,255,255))               #ect...
-            else:   #si le texte tiens en une seule ligne
-                line1 = text
-                line2 = font_dialogues.render("", True, (255,255,255))
-
-            window.blit(line1, (get_lefttop(line1, boite_dialogue, 2)[0], get_lefttop(text, boite_dialogue, 2)[1] - line1.get_rect()[3]/2) )    #blit ligne 1
-            window.blit(line2, (get_lefttop(line2, boite_dialogue, 2)[0], get_lefttop(text, boite_dialogue, 2)[1] + line2.get_rect()[3]/2) )    #blit ligne 2
         pygame.display.flip()
