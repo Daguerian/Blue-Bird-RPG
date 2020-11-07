@@ -1,3 +1,5 @@
+from os import listdir
+import json
 import pygame
 from pygame.locals import *
 pygame.init()
@@ -25,25 +27,6 @@ main_undertitle = "beta"
 main_menu_background = pygame.image.load("data/main_menu/background.jpeg").convert_alpha()
 main_menu_background = pygame.transform.scale(main_menu_background, (window_size))
 
-#fonds levels
-try:    #chambre celeste
-    chambre_celeste = pygame.image.load("data/levels/chambre_celeste/background.png").convert_alpha()
-    chambre_celeste_above_1 = pygame.image.load("data/levels/chambre_celeste/above_sprite_1.png").convert_alpha()
-    chambre_celeste_above_2 = pygame.image.load("data/levels/chambre_celeste/above_sprite_2.png").convert_alpha()
-    chambre_celeste_hitbox = pygame.image.load("data/levels/chambre_celeste/hitbox.png").convert_alpha()
-    #+ lampes/animations
-
-except:
-    print("!!! impossible de charger tous les fichiers de chambre_celeste")
-    exit()
-
-try:    #sdb celeste
-    sdb_celeste = pygame.image.load("data/levels/sdb_chambre_celeste/background.png").convert_alpha()
-    sdb_celeste_above_1 = pygame.image.load("data/levels/sdb_chambre_celeste/above_sprite_1.png").convert_alpha()
-    sdb_celeste_above_2 = pygame.image.load("data/levels/sdb_chambre_celeste/above_sprite_2.png").convert_alpha()
-    sdb_celeste_hitbox = pygame.image.load("data/levels/sdb_chambre_celeste/hitbox.png").convert_alpha()
-except:
-    print("!!! Impossible de charger tous les fichiers de sdb_chambre_celeste")
 #sprites
 try:
     sprites_celeste = pygame.image.load("data/sprites/celeste.png").convert_alpha()
@@ -53,19 +36,41 @@ except:
 
 #Game
 FPS = 60
-data_map = {}                                                                                                                     #pos joueur
-         #  Nom de la salle      background           img hitbox                liste des imgs above sprite               scrollable
-data_map["chambre_celeste"] = (
-    chambre_celeste,    #img background
-    chambre_celeste_hitbox ,    #img hitbox
-    [chambre_celeste_above_1,chambre_celeste_above_2],  #liste des aboves-sprite
-    False,      #scrollable
-    (400, 500)  #pos spawn joueur
-    )
-data_map["sdb_chambre_celeste"] = (
-    sdb_celeste,
-    sdb_celeste_hitbox,
-    [sdb_celeste_above_1, sdb_celeste_above_2],
-    False,
-    (540,470)
-    )
+
+data_map = {}
+def import_map(nom_map):    #fonction d'importation de map
+    liste_maps = listdir("data/levels/")    #liste les maps disponibles
+    if nom_map in liste_maps:
+        try:    #importe des parametres du fichier map_settings.json, doit être fait avant l'ajout
+                #au dico car le tuple de la map (dans le dico) n'est pas modifiable
+            with open(f"data/levels/{nom_map}/map_settings.json", "r") as data:
+                settings = json.load(data)
+                scrollable = settings["scrollable"]
+                spawn_pos = settings["spawn_pos"]
+
+            data_map[nom_map] = (   #importe dans le dictionnaire, les images & settings de la map
+                pygame.image.load(f"data/levels/{nom_map}/background.png").convert_alpha(), #background
+                pygame.image.load(f"data/levels/{nom_map}/hitbox.png").convert_alpha(),     #hitbox
+                [], #liste des aboves_sprites
+                scrollable,     #settings["scrollable"],
+                spawn_pos       #settings["spawn_player"]
+            )
+            for filename in listdir(f"data/levels/{nom_map}"):  #check, et importation des aboves_sprites dans la liste crée au dessus
+                if filename.startswith("above_sprite_"):   #syntaxe fichier: above_sprite_42.png
+                    image = pygame.image.load(f"data/levels/{nom_map}/{filename}").convert_alpha()
+                    data_map[nom_map][2].append(image)
+
+            print(f"Map '{nom_map}' chargée avec succes")
+            return data_map
+        except Exception as err:
+            print(f"!!! Erreur lors du chargement de '{nom_map}':")
+            print(f"    {err}")
+    else:
+        print(f"{nom_map} n'existe pas dans les niveaux existants")
+
+import_map("chambre_celeste")
+import_map("sdb_chambre_celeste")
+import_map("test")
+import_map('re-test')
+
+# print(data_map)
