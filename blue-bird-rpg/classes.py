@@ -91,7 +91,6 @@ def get_lefttop(frontbox, backbox, AlreadyRect):
     #frontbox: element à afficher (ex: bouton)
     # backbox: element sur lequel il sera affiché (ex: window)
     #AlreadyRect: si un des elements est déja un objet Rect
-    
     if AlreadyRect == 0:    # 0 = aucun deja rect
         rect1 = frontbox.get_rect()
         rect2 = backbox.get_rect()
@@ -361,9 +360,8 @@ class Game():
         else:
             pass
 
-    def dialog_box(self, text, choix1=None, choix2=None): #choix1 et choix2 contiennent chacun leur texte
+    def dialog_box(self, text, choix1=None, choix2=None, choix3=None): #choix1 et choix2 contiennent chacun leur texte
             boite_dialogue = pygame.draw.rect(window, (100,100,100,10), (get_lefttop((0,0,600,100), window, 1)[0], 70, 600, 100))
-            # text = "Bonjour à toi aventurier ! Que viens-tu faire ici, dans une contrée si lointaine de la tienne ?"
 
             text = font_dialogues.render(text, True, (255,255,255))    #rendu du texte, pour tester sa longueur
             if text.get_rect()[2] > boite_dialogue[2]*0.8:  #si la largeur du texte est > à 80% de la largeur de la boite de dialogue
@@ -379,10 +377,44 @@ class Game():
             window.blit(line1, (get_lefttop(line1, boite_dialogue, 2)[0], get_lefttop(text, boite_dialogue, 2)[1] - line1.get_rect()[3]/2) )    #blit ligne 1
             window.blit(line2, (get_lefttop(line2, boite_dialogue, 2)[0], get_lefttop(text, boite_dialogue, 2)[1] + line2.get_rect()[3]/2) )    #blit ligne 2
 
+            x,y = pygame.mouse.get_pos()
+            mousePressed = pygame.mouse.get_pressed()
+            color_btn1 = color_btn2 = color_btn3 = (100,100,100,10)
             if choix1:
-                boite_bouton1 = pygame.draw.rect(window, (100,100,100,10), (boite_dialogue[0]+boite_dialogue[2]-100, 180, 100, 30))
+                boite_bouton1 = pygame.draw.rect(window, color_btn1, (boite_dialogue[0]+boite_dialogue[2]-100, 180, 100, 30)) #dessine le 1er bouton, en bas à droite de la boite de dialogue
                 text_bouton1 = font_dialogues_boutons.render(choix1, True, (255,255,255))
-                window.blit(text_bouton1, (get_lefttop(text_bouton1, boite_bouton1, 2)))    #blit ligne 1
+                if boite_bouton1.collidepoint(x,y):
+                    color_btn1 = (67,67,67,10)
+                    if mousePressed[0]:
+                        print("bouton 1")
+                        status.game_in_menu = 0
+                else:
+                    color_btn1 = (100,100,100,10)
 
-                #idem if choix2
+                window.blit(text_bouton1, (get_lefttop(text_bouton1, boite_bouton1, 2)))
+
+                if choix2:
+                    boite_bouton2 = pygame.draw.rect(window, color_btn2, (boite_bouton1[0], boite_bouton1[1]+boite_bouton1[3]+10 , 100, 30))  #dessine le 2e bouton sous le 1er bouton
+                    text_bouton2 = font_dialogues_boutons.render(choix2, True, (255,255,255))
+                    if boite_bouton2.collidepoint(x,y):
+                        color_btn2 = (67,67,67,10)
+                        if mousePressed[0]:
+                            print("bouton 2")
+                            status.game_in_menu = 0
+                    else:
+                        color_btn1 = (100,100,100,10)
+
+                    window.blit(text_bouton2, (get_lefttop(text_bouton2, boite_bouton2, 2)))
+                
+                    if choix3:
+                        boite_bouton3 = pygame.draw.rect(window, color_btn3, (boite_bouton2[0], boite_bouton2[1]+boite_bouton2[3]+10 , 100, 30))  #dessine le 3e bouton sous le 2e bouton
+                        text_bouton3 = font_dialogues_boutons.render(choix3, True, (255,255,255))
+                        if boite_bouton3.collidepoint(x,y):
+                            color_btn3 = (67,67,67,10)
+                            if mousePressed[0]:
+                                print("bouton 3")
+                                status.game_in_menu = 0
+                        else:
+                            color_btn1 = (100,100,100,10)
+                        window.blit(text_bouton3, (get_lefttop(text_bouton3, boite_bouton3, 2)))
                 #puis trigger clic souris 

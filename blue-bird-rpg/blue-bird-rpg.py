@@ -22,19 +22,20 @@ last_press_debug = 0
 last_press_menu = 0
 
 while status.on_app:    #App ouverte
-    pygame.time.Clock().tick(30)    # boucle 30x /s
+    pygame.time.Clock().tick(FPS)    # boucle 30x /s
     status.on_main_menu = 1
     main_menu = Main_Menu(window) #Init
 
     while status.on_main_menu:  #sur le menu principal
-        pygame.time.Clock().tick(200)
+        pygame.time.Clock().tick(FPS)
         for event in pygame.event.get():    #detection des evenements
             if event.type == QUIT:  #si on quitte
                 status.on_main_menu = 0
                 status.on_app = 0
 
-            if pygame.mouse.get_focused():  #
-                main_menu.update()
+        if pygame.mouse.get_focused():  #
+            main_menu.update()
+
         pygame.display.flip()   #update apres le test main_menu.update(), en cas de changement mais reste en boucle 200Hz pour reduire le lag
 
     while status.on_settings:   #Menu des options
@@ -54,11 +55,12 @@ while status.on_app:    #App ouverte
                 fondu.fill((0,0,0))
                 window.blit(fondu, (0,0))
                 opacity -= 10
-                pygame.time.wait(25)
+                pygame.time.wait(20)
                 pygame.display.flip()
 
 
     while status.on_game:   #En jeu
+        pygame.time.Clock().tick(FPS)
         time = pygame.time.Clock().tick(FPS)    #pour reguler la vitesse du perso et des animations
         keys = pygame.key.get_pressed()
 
@@ -87,6 +89,7 @@ while status.on_app:    #App ouverte
             if keys[game.controls['key_menu']] and last_press_menu > 150:
                 last_press_menu = 0
                 print("entrée menu d'interraction")
+                game.dialog_box("Hey ! ceci est un teeest", "Bouton1", "bouton2", "bouton3")
                 status.game_in_menu = 1
         
         if status.game_in_menu:
@@ -130,6 +133,6 @@ while status.on_app:    #App ouverte
             pygame.draw.rect(window, (0,0,255), (game.player.pos_img[0], game.player.pos_img[1], game.player.image.get_rect()[2],game.player.image.get_rect()[3]), 2)
 
         if status.game_in_menu:
-            game.dialog_box("Hey ! ceci est un teeest", "Bouton")
+            
 
         pygame.display.flip()
