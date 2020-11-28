@@ -60,7 +60,7 @@ while status.on_app:    #App ouverte
 
 
     while status.on_game:   #En jeu
-        pygame.time.Clock().tick(FPS)
+        # pygame.time.Clock().tick(30)
         time = pygame.time.Clock().tick(FPS)    #pour reguler la vitesse du perso et des animations
         keys = pygame.key.get_pressed()
 
@@ -113,6 +113,7 @@ while status.on_app:    #App ouverte
             if event.type == QUIT:
                 status.on_game = 0
 
+
         #update de l'ecran
         window.fill((0,0,0))    #black screen arriere plan
         window.blit(game.background, (game.pos_background)) #background de la salle
@@ -132,7 +133,7 @@ while status.on_app:    #App ouverte
             pygame.draw.rect(window, (255,0,0), game.player.rect_pieds, 2)
             pygame.draw.rect(window, (0,0,255), (game.player.pos_img[0], game.player.pos_img[1], game.player.image.get_rect()[2],game.player.image.get_rect()[3]), 2)
 
-        if status.game_in_menu:
-            
+        # if status.game_in_menu:
+        #     game.dialog_box("texte test", "bouton1", "bouton2")
 
         pygame.display.flip()

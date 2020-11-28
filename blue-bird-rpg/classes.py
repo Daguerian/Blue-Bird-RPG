@@ -223,11 +223,13 @@ class Game():
             print ("/!\ impossible de créer le fichier de sauvegarde")
         
     def hit(self, rect, sens):
-        hit = [pygame.Color(0,0,0,0),pygame.Color(0,0,0,0)]
+        hit = [pygame.Color(0,0,0,0),pygame.Color(0,0,0,0)] 
         x = int(rect[0] - self.pos_background[0])
         xx = int(x + rect[2])
         y = int(rect[1] - self.pos_background[1])
         yy = int(y + rect[3])
+        
+        #selectionne 2 points à check selon le sens
         if sens == "up":
             hit[0] += self.hitbox.get_at((int(x),int(y)))  #point haut-gauche
             hit[1] += self.hitbox.get_at((int(xx),int(y))) #point haut-droite
@@ -241,6 +243,8 @@ class Game():
             hit[0] += self.hitbox.get_at((int(xx),int(y)))
             hit[1] += self.hitbox.get_at((int(xx),int(yy)))
             #du 1er au 3e NON INCLUS 
+
+        #Aboves sprites
         if hit[0][0:3] == (255, 255, 255) and hit[1][0:3] == (255, 255, 255):    #couleur blanche, aucun above
             self.above_sprite = None
             return "can_move"
@@ -252,11 +256,15 @@ class Game():
             return "can_move"
         elif hit[0][0:3] == (255,216,0) and hit[1][0:3] == (255,216,0):         #couleur jaune, above 3
             self.above_sprite = self.above_sprite_list[2]
+        
         #Portes
         if hit[0][0:3] == (255,0,110) or hit[1][0:3] == (255,0,110):      #rose/violet, porte 1
             self.change_room(self.room_name, 1)
         elif hit[0][0:3] == (229,0,99) or hit[1][0:3] == (229,0,99):  # , porte 2
             print("Porte 2")
+        
+        # Boites de dialogue
+        # if hit[0][0:3] == 
 
     def change_room(self, room, porte):
         if porte == 1:
@@ -379,7 +387,7 @@ class Game():
 
             x,y = pygame.mouse.get_pos()
             mousePressed = pygame.mouse.get_pressed()
-            color_btn1 = color_btn2 = color_btn3 = (100,100,100,10)
+            color_btn1 = color_btn2 = color_btn3 = (100,100,100,10) #couleru par defaut des boutons, pour leur 1er affichage
             if choix1:
                 boite_bouton1 = pygame.draw.rect(window, color_btn1, (boite_dialogue[0]+boite_dialogue[2]-100, 180, 100, 30)) #dessine le 1er bouton, en bas à droite de la boite de dialogue
                 text_bouton1 = font_dialogues_boutons.render(choix1, True, (255,255,255))
@@ -417,4 +425,4 @@ class Game():
                         else:
                             color_btn1 = (100,100,100,10)
                         window.blit(text_bouton3, (get_lefttop(text_bouton3, boite_bouton3, 2)))
-                #puis trigger clic souris 
+                #trigger clic souris 
